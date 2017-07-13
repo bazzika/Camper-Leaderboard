@@ -67,8 +67,8 @@ var CampersList = React.createClass({
         <tr>
           <td className='number'>#</td>
           <td className='username'>Camper Name</td>
-          <td className='recentPoints' onClick={this.sortByRecentTimeMembers}>Points in past 30 days</td>
-          <td className='alltimePoints' onClick={this.sortByAllTimeMembers}>All time points</td>
+          <td className='recentPoints' onClick={this.sortByRecentTimeMembers}><a href='#'>Points in past 30 days</a></td>
+          <td className='alltimePoints' onClick={this.sortByAllTimeMembers}><a href='#'>All time points</a></td>
         </tr>
         {listElements}
       </tbody>
