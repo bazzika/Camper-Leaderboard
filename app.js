@@ -9,7 +9,10 @@ function listOfCampers(url) {
   xhr.send();
   return JSON.parse(xhr.responseText);
 }
-var allCampers=listOfCampers(allMonthUrl);
+var allCampers=listOfCampers(monthUrl);
+var sortedAll=allCampers.sort(function(a,b){
+  return b.recent-a.recent;
+})
 console.log(allCampers);
 var CampersList = React.createClass({
   getInitialState: function () {
@@ -19,10 +22,24 @@ var CampersList = React.createClass({
       //sortBy: false
     }
   },
-  //sortMembers: function(){
-  //
-  //  return
-  //}
+  sortByRecentTimeMembers: function(e){
+    e.preventDefault();
+    const sortedRecent=allCampers.sort(function(a,b){
+      return b.recent-a.recent
+    });
+    this.setState({
+      members:sortedRecent
+    });
+  },
+  sortByAllTimeMembers: function(e){
+    e.preventDefault();
+    const sortedAll=allCampers.sort(function(a,b){
+      return b.alltime-a.alltime
+    });
+    this.setState({
+      members:sortedAll
+    });
+  },
   render:function(){
     const members=this.state.members;
     console.log(this.state);
@@ -39,14 +56,20 @@ var CampersList = React.createClass({
             <img src={member['img']}/>{member['username']}
               </a>
             </td>
-            <td className='alltimePoints'>{member['alltime']}
-            </td>
             <td className='recentPoints'>{member['recent']}
+            </td>
+            <td className='alltimePoints'>{member['alltime']}
             </td>
           </tr>)
       });
     return (
       <tbody>
+        <tr>
+          <td className='number'>#</td>
+          <td className='username'>Camper Name</td>
+          <td className='recentPoints' onClick={this.sortByRecentTimeMembers}>Points in past 30 days</td>
+          <td className='alltimePoints' onClick={this.sortByAllTimeMembers}>All time points</td>
+        </tr>
         {listElements}
       </tbody>
     )
