@@ -49,7 +49,7 @@ var CampersList = React.createClass({
     const listElements = members.map(function (member, index) {
         return (
           <tr key={index}>
-            <td className='member'>{index + 1}
+            <td className='number'>{index + 1}
             </td>
             <td className='username'>
               <a href={showMembers[index]}>
@@ -66,7 +66,7 @@ var CampersList = React.createClass({
       <tbody>
         <tr>
           <td className='number'>#</td>
-          <td className='username'>Camper Name</td>
+          <td className='user'>Camper Name</td>
           <td className='recentPoints' onClick={this.sortByRecentTimeMembers}><a href='#'>Points in past 30 days</a></td>
           <td className='alltimePoints' onClick={this.sortByAllTimeMembers}><a href='#'>All time points</a></td>
         </tr>
