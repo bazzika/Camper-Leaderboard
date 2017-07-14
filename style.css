@@ -16,6 +16,7 @@ img {
 .number, .alltimePoints, .recentPoints {
     text-align: center;
     font-size: 20px;
+    font-weight: bolder;
 }
 .username {
     font-size: 20px;
@@ -23,6 +24,7 @@ img {
 .user{
     text-align: center;
     font-size: 20px;
+    font-weight: bolder;
 }
 td {
     border: 2px;

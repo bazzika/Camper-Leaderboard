@@ -10,9 +10,6 @@ function listOfCampers(url) {
   return JSON.parse(xhr.responseText);
 }
 var allCampers=listOfCampers(monthUrl);
-var sortedAll=allCampers.sort(function(a,b){
-  return b.recent-a.recent;
-})
 console.log(allCampers);
 var CampersList = React.createClass({
   getInitialState: function () {
@@ -23,8 +20,8 @@ var CampersList = React.createClass({
     }
   },
   sortByRecentTimeMembers: function(e){
-    e.preventDefault();
-    const sortedRecent=allCampers.sort(function(a,b){
+    //e.preventDefault();
+    const sortedRecent=this.state.members.sort(function(a,b){
       return b.recent-a.recent
     });
     this.setState({
@@ -32,8 +29,8 @@ var CampersList = React.createClass({
     });
   },
   sortByAllTimeMembers: function(e){
-    e.preventDefault();
-    const sortedAll=allCampers.sort(function(a,b){
+    //e.preventDefault();
+    const sortedAll=this.state.members.sort(function(a,b){
       return b.alltime-a.alltime
     });
     this.setState({
@@ -64,7 +61,7 @@ var CampersList = React.createClass({
       });
     return (
       <tbody>
-        <tr>
+        <tr class='title'>
           <td className='number'>#</td>
           <td className='user'>Camper Name</td>
           <td className='recentPoints' onClick={this.sortByRecentTimeMembers}><a href='#'>Points in past 30 days</a></td>
