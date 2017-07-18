@@ -13,7 +13,7 @@ img {
     background-color: green;
     color: white;
 }
-.number, .alltimePoints, .recentPoints {
+.number {
     text-align: center;
     font-size: 20px;
     font-weight: bolder;
@@ -35,4 +35,13 @@ tbody {
 }
 .root {
     width: 100%;
+}
+.sortable {
+    text-align: center;
+    font-size: 20px;
+    font-weight: bolder;
+}
+.sorted.true:after{
+    content: ' \25bc';
+    font-size:14px;
 }

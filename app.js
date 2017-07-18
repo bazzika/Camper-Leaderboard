@@ -11,67 +11,73 @@ function listOfCampers(url) {
 }
 var allCampers=listOfCampers(monthUrl);
 console.log(allCampers);
-var CampersList = React.createClass({
+var CampersList;
+CampersList = React.createClass({
   getInitialState: function () {
-    console.log('kkh');
     return {
-      members:allCampers,
-      //sortBy: false
+      members: allCampers,
+      sortByRecent: true,
+      sortByAll:false
     }
   },
-  sortByRecentTimeMembers: function(e){
-    //e.preventDefault();
-    const sortedRecent=this.state.members.sort(function(a,b){
-      return b.recent-a.recent
+  sortByRecentTimeMembers: function (e) {
+    const sortedRecent = this.state.members.sort(function (a, b) {
+      return b.recent - a.recent
     });
-    this.setState({
-      members:sortedRecent
-    });
+      this.setState({
+        members: sortedRecent,
+        sortByRecent: true,
+        sortByAll: false
+      });
   },
-  sortByAllTimeMembers: function(e){
-    //e.preventDefault();
-    const sortedAll=this.state.members.sort(function(a,b){
-      return b.alltime-a.alltime
+  sortByAllTimeMembers: function (e) {
+    e.preventDefault();
+    const sortedAll = this.state.members.sort(function (a, b) {
+      return b.alltime - a.alltime
     });
-    this.setState({
-      members:sortedAll
-    });
+      this.setState({
+        members: sortedAll,
+        sortByRecent: false,
+        sortByAll: true
+      });
   },
-  render:function(){
-    const members=this.state.members;
+  render: function () {
+    const members = this.state.members;
     console.log(this.state);
-    const showMembers=members.map(function(element){
+    const showMembers = members.map(function (element) {
       return 'https://www.freecodecamp.com/' + element['username']
     });
     const listElements = members.map(function (member, index) {
-        return (
-          <tr key={index}>
-            <td className='number'>{index + 1}
-            </td>
-            <td className='username'>
-              <a href={showMembers[index]}>
-            <img src={member['img']}/>{member['username']}
-              </a>
-            </td>
-            <td className='recentPoints'>{member['recent']}
-            </td>
-            <td className='alltimePoints'>{member['alltime']}
-            </td>
-          </tr>)
-      });
+      return (
+        <tr key={index}>
+          <td className='number'>{index + 1}
+          </td>
+          <td className='username'>
+            <a href={showMembers[index]}>
+              <img src={member['img']}/>{member['username']}
+            </a>
+          </td>
+          <td className='sortable'>{member['recent']}
+          </td>
+          <td className='sortable'>{member['alltime']}
+          </td>
+        </tr>)
+    });
     return (
       <tbody>
-        <tr class='title'>
-          <td className='number'>#</td>
-          <td className='user'>Camper Name</td>
-          <td className='recentPoints' onClick={this.sortByRecentTimeMembers}><a href='#'>Points in past 30 days</a></td>
-          <td className='alltimePoints' onClick={this.sortByAllTimeMembers}><a href='#'>All time points</a></td>
-        </tr>
-        {listElements}
+      <tr class='title'>
+        <td className='number'>#</td>
+        <td className='user'>Camper Name</td>
+        <td className={this.state.sortByRecent ? 'sortable sorted true':'sortable'} onClick={this.sortByRecentTimeMembers}><a href='#'>Points in past 30
+          days</a></td>
+        <td className={this.state.sortByAll ? 'sortable sorted true':'sortable'} onClick={this.sortByAllTimeMembers}><a href='#'>All time points</a>
+        </td>
+      </tr>
+      {listElements}
       </tbody>
     )
   }
-})
+});
 ReactDOM.render(
   <CampersList />,
   document.querySelector('.root')
